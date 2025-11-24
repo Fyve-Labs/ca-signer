@@ -1,0 +1,3 @@
+caURL: https://ca-prod.fyve-system.svc.cluster.local
+rootCAPath: /Users/viet/.step/authorities/prod/certs/root_ca.crt
+provisionerPasswordFile: provisioner-password.txt

@@ -1,0 +1,4 @@
+/.idea
+/examples/*
+!/examples/client.go
+/provisioner-password.txt

@@ -1,0 +1,4 @@
+# docker run --rm --name ca-signer -v $PWD/docker_config.yaml:/etc/ca-signer/config.yaml -v $PWD/provisioner-password.txt:/provisioner-password.txt -v $PWD/examples/root.crt:/etc/ca-signer/root.crt -p 4443:4443 ca-signer
+caURL: https://ca-prod.fyve-system.svc.cluster.local
+rootCAPath: /etc/ca-signer/root.crt
+provisionerPasswordFile: /provisioner-password.txt
