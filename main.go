@@ -14,7 +14,6 @@ import (
 	"github.com/smallstep/certificates/api/render"
 	"github.com/smallstep/certificates/ca"
 	"github.com/smallstep/certificates/errs"
-	"github.com/smallstep/certificates/pki"
 	"sigs.k8s.io/yaml"
 )
 
@@ -59,7 +58,7 @@ func (c Config) GetServiceName() string {
 		return c.Service
 	}
 
-	return "ca-signer.default.svc"
+	return "ca-signer.step.svc.cluster.local"
 }
 
 func (c Config) GetRootCAPath() string {
@@ -67,7 +66,7 @@ func (c Config) GetRootCAPath() string {
 		return c.RootCAPath
 	}
 
-	return pki.GetRootCAPath()
+	return "/home/step/certs/root_ca.crt"
 }
 
 // GetProvisionerPasswordPath returns the path to the provisioner password,
@@ -78,7 +77,7 @@ func (c Config) GetProvisionerPasswordPath() string {
 		return c.ProvisionerPasswordFile
 	}
 
-	return "/home/step/password"
+	return "/home/step/password/password"
 }
 
 func main() {
@@ -123,7 +122,7 @@ func main() {
 		"kid":  provisioner.Kid(),
 	}).Info("Loaded provisioner")
 
-	token, err := provisioner.Token(config.GetServiceName(), "127.0.0.1")
+	token, err := provisioner.Token(config.GetServiceName(), config.GetServiceName(), "127.0.0.1")
 	if err != nil {
 		log.WithField("error", err).Errorf("Error generating bootstrap token during signer startup")
 		os.Exit(1)
