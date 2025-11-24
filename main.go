@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -138,13 +137,6 @@ func main() {
 		Addr:              config.GetAddress(),
 		ReadHeaderTimeout: 15 * time.Second,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if r.URL.Path == "/healthz" {
-				log.Info("/healthz")
-				w.WriteHeader(http.StatusOK)
-				fmt.Fprintln(w, "ok")
-				return
-			}
-
 			if r.URL.Path != "/sign" {
 				log.WithField("path", r.URL.Path).Error("Bad Request: 404 Not Found")
 				http.NotFound(w, r)
